@@ -1,5 +1,4 @@
 const express = require('express');
-const { v4: uuid } = require('uuid');
 const logger = require('../logger');
 const xss = require('xss');
 const Router = express.Router();
