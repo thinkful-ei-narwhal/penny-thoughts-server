@@ -4,9 +4,9 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const Service = require('./service');
+const Service = require('./endpoint/service');
 const logger = require('./logger');
-const Router = require('./router');
+const Router = require('./endpoint/router');
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
