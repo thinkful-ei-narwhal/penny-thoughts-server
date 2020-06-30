@@ -22,6 +22,10 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
 app.use(function requireAuth(req, res, next) {
   const authValue = req.get('Authorization') || ' ';
 
@@ -42,6 +46,7 @@ app.use(function requireAuth(req, res, next) {
 // server requests
 
 app.use('/api', Router);
+
 
 // errorHandler middleware
 
