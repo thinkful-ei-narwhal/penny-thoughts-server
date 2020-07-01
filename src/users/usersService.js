@@ -53,6 +53,8 @@ const UsersService = {
     };
   },
 
+
+  // move to messages endpoint
   getUsersMessages(db, user) {
     return db
       .from('messages')
@@ -77,13 +79,11 @@ const UsersService = {
 
   banHammer(db, user, banned_id) {
     if (user.admin !== true) {
-      return db
-        .from('users') //? not sure if this is correct?
+      return db('users') 
         .where('id', user.id)
         .update({ banned: true });
     }
-    return db
-      .from('users') //? not sure if this is correct?
+    return db('users')
       .where('id', banned_id)
       .update({ banned: true });
   }
