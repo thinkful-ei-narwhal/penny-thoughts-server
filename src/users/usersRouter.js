@@ -8,19 +8,20 @@ const jsonBodyParser = express.json();
 
 usersRouter
   .route('/')
-  .get(requireAuth, jsonBodyParser, (req, res, next) => {
+  // This should be in messages endpoint ******
+  // .get(requireAuth, jsonBodyParser, (req, res, next) => {
 
-    UsersService.getUsersMessages(
-      req.app.get('db'),
-      req.user.id
-    )
-      .then(userMessages => {
-        res.json(userMessages);
-      })
-      .catch(next);
-  })
+  //   UsersService.getUsersMessages(
+  //     req.app.get('db'),
+  //     req.user.id
+  //   )
+  //     .then(userMessages => {
+  //       res.json(userMessages);
+  //     })
+  //     .catch(next);
+  // })
   .post(jsonBodyParser, (req, res, next) => {
-    const { full_name, username, email, password, reported_count, daily_count, banned, admin} = req.body;
+    const { full_name, username, email, password } = req.body;
 
     for (const field of ['full_name', 'username', 'email', 'password'])
       if (!req.body[field])
@@ -31,6 +32,8 @@ usersRouter
     // for (const field of ['reported_count', 'daily_count', 'banned', 'admin'])
     //   if (req.body[field])
     //   return // compare the filed values against the database values
+
+    const admin = false;
 
     const passwordError = UsersService.validatePassword(password);
     if (passwordError)
@@ -51,6 +54,7 @@ usersRouter
               password: hashedPassword,
               full_name,
               email,
+              admin
             };
 
             return UsersService.insertUser(

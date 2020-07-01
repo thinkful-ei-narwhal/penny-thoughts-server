@@ -8,6 +8,7 @@ const MessagesService = require('./messages-endpoint/messages-service');
 const logger = require('./logger');
 
 const usersRouter = require('./users/usersRouter');
+const authRouter = require('./auth/auth-router');
 const MessagesRouter = require('./messages-endpoint/messages-router');
 
 const { NODE_ENV, API_TOKEN } = require('./config');
@@ -27,6 +28,15 @@ app.use(cors());
 
 //comment this function out for testing purposes
 
+
+//this is before the auth function bc this is not a protected endpoint
+// server requests
+
+
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
+
+
 app.use(function requireAuth(req, res, next) {
   const authValue = req.get('Authorization') || ' ';
 
@@ -44,12 +54,7 @@ app.use(function requireAuth(req, res, next) {
   next();
 });
 
-// server requests
-
-
-app.use('/api/users', usersRouter);
 app.use('/api/messages', MessagesRouter);
-
 
 
 // errorHandler middleware
