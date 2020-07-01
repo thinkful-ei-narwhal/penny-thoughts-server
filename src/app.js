@@ -8,7 +8,7 @@ const Service = require('./endpoint/service');
 const logger = require('./logger');
 const Router = require('./endpoint/router');
 const usersRouter = require('./users/usersRouter');
-const
+const authRouter = require('./auth/auth-router');
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
@@ -27,6 +27,11 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
+
+
+//this is before the auth function bc this is not a protected endpoint
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 app.use(function requireAuth(req, res, next) {
   const authValue = req.get('Authorization') || ' ';
@@ -48,7 +53,6 @@ app.use(function requireAuth(req, res, next) {
 // server requests
 
 app.use('/api', Router);
-app.use('/api/users', usersRouter);
 
 
 // errorHandler middleware
