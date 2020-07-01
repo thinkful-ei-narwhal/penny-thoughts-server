@@ -29,27 +29,6 @@ app.use(cors());
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
-
-app.use(function requireAuth(req, res, next) {
-  const authValue = req.get('Authorization') || ' ';
-
-  //verify bearer
-  if (!authValue.toLowerCase().startsWith('bearer')) {
-    return res.status(400).json({ error: 'Missing bearer token' });
-  }
-
-  const token = authValue.split(' ')[1];
-
-  if (token !== API_TOKEN) {
-    return res.status(401).json({ error: 'Invalid token' });
-  }
-
-  next();
-});
-
-// server requests
-
-
 app.use('/api/messages', MessagesRouter);
 
 // errorHandler middleware
