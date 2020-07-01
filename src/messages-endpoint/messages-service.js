@@ -6,6 +6,7 @@ const MessagesService = {
       .from('messages')
       .select('*')
       .orderByRaw('random()')
+      .where('flagged', 'false')
       .limit(10);
   },
 
@@ -14,6 +15,7 @@ const MessagesService = {
       .from('messages')
       .select('*')
       .orderByRaw('random()')
+      .where('flagged', 'false')
       .limit(1);
   },
 
