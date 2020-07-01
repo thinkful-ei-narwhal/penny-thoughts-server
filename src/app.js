@@ -4,11 +4,13 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const Service = require('./endpoint/service');
+const MessagesService = require('./messages-endpoint/messages-service');
 const logger = require('./logger');
-const Router = require('./endpoint/router');
+
 const usersRouter = require('./users/usersRouter');
 const authRouter = require('./auth/auth-router');
+const MessagesRouter = require('./messages-endpoint/messages-router');
+
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
@@ -24,14 +26,16 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
+//comment this function out for testing purposes
 
 
 //this is before the auth function bc this is not a protected endpoint
+// server requests
+
+
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+
 
 app.use(function requireAuth(req, res, next) {
   const authValue = req.get('Authorization') || ' ';
@@ -50,9 +54,7 @@ app.use(function requireAuth(req, res, next) {
   next();
 });
 
-// server requests
-
-app.use('/api', Router);
+app.use('/api/messages', MessagesRouter);
 
 
 // errorHandler middleware
