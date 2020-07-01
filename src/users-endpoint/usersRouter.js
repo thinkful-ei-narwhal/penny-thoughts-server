@@ -73,8 +73,8 @@ usersRouter
 
   })
   .delete((req, res, next) => {
-    if (req.user.id !== user.id) {
-      return rs.status(401).json({
+    if (req.user.id !== user.id) { // FIXME
+      return res.status(401).json({
         error: 'You are not the user...BANHAMMER!'
       });
     }

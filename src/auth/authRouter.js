@@ -1,91 +1,42 @@
 const express = require('express');
-const path = require('path');
-const UsersService = require('./usersService');
-const { requireAuth } = require('../middleware/jwt-auth');
-
-const usersRouter = express.Router();
 const jsonBodyParser = express.json();
+const AuthService = require('./authService');
+const authRouter = express.Router();
 
-usersRouter
-  .route('/')
-  .get(requireAuth, jsonBodyParser, (req, res, next) => {
+authRouter
+  .post('/login', jsonBodyParser, (req, res, next) => {
+    const { username, password } = req.body;
+    const loginUser = { username, password };
 
-    UsersService.getUsersMessages(
-      req.app.get('db'),
-      req.user.id
-    )
-      .then(userMessages => {
-        res.json(userMessages);
-      })
-      .catch(next);
-  })
-  .post(jsonBodyParser, (req, res, next) => {
-    const { full_name, username, email, password, reported_count, daily_count, banned, admin} = req.body;
-
-    for (const field of ['full_name', 'username', 'email', 'password'])
-      if (!req.body[field])
+    for (const [key, value] of Object.entries(loginUser))
+      // eslint-disable-next-line eqeqeq
+      if (value == null)
         return res.status(400).json({
-          error: `Missing '${field}' in request body`
+          error: `Missing '${key}' in request body`
         });
 
-    // for (const field of ['reported_count', 'daily_count', 'banned', 'admin'])
-    //   if (req.body[field])
-    //   return // compare the filed values against the database values
-
-    const passwordError = UsersService.validatePassword(password);
-    if (passwordError)
-      return res.status(400).json({ error: passwordError });
-    
-    UsersService.hasUsername(
+    AuthService.getUserWithUserName(
       req.app.get('db'),
-      username
+      loginUser.username
     )
-      .then(hasUsername => {
-        if (hasUsername)
-          return res.status(400).json({ error: 'Username already taken'});
-
-        return UsersService.hashPassword(password)
-          .then(hashedPassword => {
-            const newUser = {
-              username,
-              password: hashedPassword,
-              full_name,
-              email,
-            };
-
-            return UsersService.insertUser(
-              req.app.get('db'),
-              newUser
-            )
-              .then(user => {
-                res
-                  .status(201)
-                  .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                  .json(UsersService.serializeUser(user));
-              });
+      .then(user => {
+        if (!user) {
+          return res.status(400).json({ error: 'Incorrect username or password' });
+        }
+        return AuthService.comparePasswords(loginUser.password, user.password)
+          .then(isMatch => {
+            if (!isMatch) {
+              return res.status(400).json({ error: 'Incorrect username or password' });
+            }
+            const sub = user.username;
+            const payload = { user_id: user.id };
+            res.send({ authToken: AuthService.createJwt(sub, payload) });
           });
-      })
-      .catch(next);
-
-  })
-  .delete((req, res, next) => {
-    if (req.user.id !== user.id) {
-      return rs.status(401).json({
-        error: 'You are not the user...BANHAMMER!'
-      });
-    }
-
-    UsersService.deleteUser(
-      req.app.get('db'),
-      req.params.user
-    )
-      .then(() => {
-        res.status(201).json({success: true});
       })
       .catch(next);
   });
 
-module.exports = usersRouter;
+module.exports = authRouter;
 
 
 

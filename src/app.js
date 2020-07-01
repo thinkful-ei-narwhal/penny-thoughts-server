@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 require('dotenv').config();
+/* eslint-disable no-console */
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const MessagesService = require('./messages-endpoint/messages-service');
 const logger = require('./logger');
-
-const usersRouter = require('./users/usersRouter');
-const authRouter = require('./auth/auth-router');
+const usersRouter = require('./users-endpoint/usersRouter');
 const MessagesRouter = require('./messages-endpoint/messages-router');
-
+const authRouter = require('./auth/authRouter');
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
@@ -28,14 +27,8 @@ app.use(cors());
 
 //comment this function out for testing purposes
 
-
-//this is before the auth function bc this is not a protected endpoint
-// server requests
-
-
-app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
-
+app.use('/api/users', usersRouter);
 
 app.use(function requireAuth(req, res, next) {
   const authValue = req.get('Authorization') || ' ';
@@ -54,8 +47,10 @@ app.use(function requireAuth(req, res, next) {
   next();
 });
 
-app.use('/api/messages', MessagesRouter);
+// server requests
 
+
+app.use('/api/messages', MessagesRouter);
 
 // errorHandler middleware
 
