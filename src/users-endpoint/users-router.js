@@ -3,7 +3,7 @@ const logger = require('../logger');
 const xss = require('xss');
 const Router = express.Router();
 const dataParser = express.json();
-const Service = require('./service');
+const Service = require('./users-service');
 
 const serialize = item => ({
   
