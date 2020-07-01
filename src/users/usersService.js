@@ -53,7 +53,7 @@ const UsersService = {
     };
   },
 
-  getUserData(db, user) {
+  getUsersMessages(db, user) {
     return db
       .from('messages')
       .where('id', user.id)
@@ -73,5 +73,20 @@ const UsersService = {
           .where('user_id', user.id)
           .del()
       ]));
+  },
+
+  banHammer(db, user, banned_id) {
+    if (user.admin !== true) {
+      return db
+        .from('users')
+        .where('id', user.id)
+        .update({ banned: true });
+    }
+    return db
+      .from('users')
+      .where('id', banned_id)
+      .update({ banned: true });
   }
 };
+
+module.exports = UsersService;
