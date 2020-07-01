@@ -28,9 +28,9 @@ usersRouter
         error: `Missing '${field}' in request body`
       });
 
-    for (const field of ['reported_count', 'daily_count', 'banned', 'admin'])
-      if (req.body[field])
-      return // compare the filed values against the database values
+    // for (const field of ['reported_count', 'daily_count', 'banned', 'admin'])
+    //   if (req.body[field])
+    //   return // compare the filed values against the database values
 
     const passwordError = UsersService.validatePassword(password);
     if (passwordError)
@@ -45,7 +45,7 @@ usersRouter
           return res.status(400).json({ error: 'Username already taken'});
 
         return UsersService.hashPassword(password)
-          .then(hashedPasswords => {
+          .then(hashedPassword => {
             const newUser = {
               username,
               password: hashedPassword,
@@ -67,6 +67,22 @@ usersRouter
       })
       .catch(next)
 
+  })
+  .delete((req, res, next) => {
+    if (req.user.id !== user.id) {
+      return rs.status(401).json({
+        error: 'You are not the user...BANHAMMER'
+      })
+    }
+
+    UsersService.deleteUser(
+      req.app.get('db'),
+      req.params.user
+    )
+      .then(() => {
+        res.status(201).json({success: true})
+      })
+      .catch(next);
   })
 
   module.exports = usersRouter;
