@@ -7,6 +7,8 @@ const helmet = require('helmet');
 const Service = require('./endpoint/service');
 const logger = require('./logger');
 const Router = require('./endpoint/router');
+const usersRouter = require('./users/usersRouter');
+const
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
@@ -46,6 +48,7 @@ app.use(function requireAuth(req, res, next) {
 // server requests
 
 app.use('/api', Router);
+app.use('/api/users', usersRouter);
 
 
 // errorHandler middleware

@@ -78,12 +78,12 @@ const UsersService = {
   banHammer(db, user, banned_id) {
     if (user.admin !== true) {
       return db
-        .from('users')
+        .from('users') //? not sure if this is correct?
         .where('id', user.id)
         .update({ banned: true });
     }
     return db
-      .from('users')
+      .from('users') //? not sure if this is correct?
       .where('id', banned_id)
       .update({ banned: true });
   }

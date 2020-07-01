@@ -71,7 +71,7 @@ usersRouter
   .delete((req, res, next) => {
     if (req.user.id !== user.id) {
       return rs.status(401).json({
-        error: 'You are not the user...BANHAMMER'
+        error: 'You are not the user...BANHAMMER!'
       })
     }
 
