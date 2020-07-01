@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const UsersService = require('./usersService');
-const { requireAuth } = require('../middleware/jwt-auth')
+const { requireAuth } = require('../middleware/jwt-auth');
 
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -15,18 +15,18 @@ usersRouter
       req.user.id
     )
       .then(userMessages => {
-        res.json(userMessages)
+        res.json(userMessages);
       })
-      .catch(next)
+      .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
-    const { full_name, username, email, password, reported_count, daily_count, banned, admin} = req.body
+    const { full_name, username, email, password, reported_count, daily_count, banned, admin} = req.body;
 
     for (const field of ['full_name', 'username', 'email', 'password'])
       if (!req.body[field])
-      return res.status(400).json({
-        error: `Missing '${field}' in request body`
-      });
+        return res.status(400).json({
+          error: `Missing '${field}' in request body`
+        });
 
     // for (const field of ['reported_count', 'daily_count', 'banned', 'admin'])
     //   if (req.body[field])
@@ -62,17 +62,17 @@ usersRouter
                   .status(201)
                   .location(path.posix.join(req.originalUrl, `/${user.id}`))
                   .json(UsersService.serializeUser(user));
-              })
-          })
+              });
+          });
       })
-      .catch(next)
+      .catch(next);
 
   })
   .delete((req, res, next) => {
     if (req.user.id !== user.id) {
       return rs.status(401).json({
         error: 'You are not the user...BANHAMMER!'
-      })
+      });
     }
 
     UsersService.deleteUser(
@@ -80,12 +80,12 @@ usersRouter
       req.params.user
     )
       .then(() => {
-        res.status(201).json({success: true})
+        res.status(201).json({success: true});
       })
       .catch(next);
-  })
+  });
 
-  module.exports = usersRouter;
+module.exports = usersRouter;
 
 
 
