@@ -6,7 +6,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const MessagesService = require('./messages-endpoint/messages-service');
 const logger = require('./logger');
+
+const usersRouter = require('./users/usersRouter');
 const MessagesRouter = require('./messages-endpoint/messages-router');
+
 const { NODE_ENV, API_TOKEN } = require('./config');
 
 
@@ -43,7 +46,10 @@ app.use(function requireAuth(req, res, next) {
 
 // server requests
 
+
+app.use('/api/users', usersRouter);
 app.use('/api/messages', MessagesRouter);
+
 
 
 // errorHandler middleware

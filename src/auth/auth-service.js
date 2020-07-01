@@ -3,18 +3,18 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const AuthService = {
-  getUserWithUserName(db, user_name) {
-    return db('') // IMPORTANT, PUT USERS TABLE NAME HERE
-      .where({user_name})
+  getUserWithUserName(db, username) {
+    return db('users') // IMPORTANT, PUT USERS TABLE NAME HERE
+      .where({ username })
       .first();
   },
 
   comparePasswords(password, hash) {
     return bcrypt.compare(password, hash);
   },
-
+  //set expiry?
   createJwt(subject, payload) {
-    return jwt.sign(payload, config.JWT_SECRET, {subject, algorithm: 'HS256'});
+    return jwt.sign(payload, config.JWT_SECRET, { subject, algorithm: 'HS256' });
   },
 
   verifyJwt(token) {
@@ -23,7 +23,7 @@ const AuthService = {
     });
   },
 
-  parseBasicToken(token){
+  parseBasicToken(token) {
     return Buffer
       .from(token, 'base64')
       .toString()
