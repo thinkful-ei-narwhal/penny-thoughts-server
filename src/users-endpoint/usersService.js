@@ -20,13 +20,18 @@ const UsersService = {
 
   validatePassword(password) {
     if (password.length < 7) {
-      return 'Password is too short';
+      return `Password is too short.  Must be longer than 6 characters.
+      Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char.` ;
     }
     if (password.length > 26) {
-      return 'Password is too long';
+      return `Password is too long.  Password must be less than 26 characters.
+      Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char.`;
     }
     if (password.startsWith(' ') || password.endsWith(' ')) {
-      return 'Password cannot start or end with empty spaces';
+      return `Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char`;
     }
     if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
       return 'Password must contain an uppercase, lowercase, number and a special char';
