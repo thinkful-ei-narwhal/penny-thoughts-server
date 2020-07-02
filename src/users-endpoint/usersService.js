@@ -58,13 +58,34 @@ const UsersService = {
   getUsersMessages(db, user) {
     return db
       .from('messages')
-      .where('id', user.id)
+      .where('user_id', user.id)
+      .returning('*')
+      .then(([data]) => data);
+  },
+
+  deleteSingleMessage(db, user, id) {
+    return db('messages')
+      .where('user_id', user.id)
+      .andWhere('id', id)
+      .del()
+      .returning('*')
+      .then(([data]) => data);
+  },
+
+  editSingleMessage(db, user, id, req) {
+    return db('messages')
+      .where('user_id', user.id)
+      .andWhere('id', id)
+      .update({
+        message: req.body.message,
+        date_modified: req.body.modified
+      })
       .returning('*')
       .then(([data]) => data);
   },
 
   deleteUser(db, req) {
-    console.log('user ID:', req.user);
+    // console.log('user ID:', req.user);
     return db.transaction(trx =>
       Promise.all([
         db('users')

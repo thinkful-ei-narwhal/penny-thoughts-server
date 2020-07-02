@@ -7,19 +7,7 @@ const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
 usersRouter
-  .route('/')
-  // This should be in messages endpoint ******
-  // .get(requireAuth, jsonBodyParser, (req, res, next) => {
 
-  //   UsersService.getUsersMessages(
-  //     req.app.get('db'),
-  //     req.user.id
-  //   )
-  //     .then(userMessages => {
-  //       res.json(userMessages);
-  //     })
-  //     .catch(next);
-  // })
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
 
