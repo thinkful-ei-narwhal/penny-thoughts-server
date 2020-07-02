@@ -15,7 +15,6 @@ MessagesRouter
   .post(dataParser, requireAuth, (req, res, next) => {
     const { message } = req.body;
     const threshold = 0.85;
-    console.log('testing');
 
     if(!message){
       return res.status(400).json({error: 'message must exist'});
@@ -25,7 +24,6 @@ MessagesRouter
 
       toxicity.load(threshold).then(model => {
         model.classify(message).then(predictions => {
-          console.log('made it here');
           let tox = false;
           let i = 0;
           while (!tox && i < predictions.length -1){
@@ -35,11 +33,11 @@ MessagesRouter
             } 
             i++;
           }
-          console.log('also made it here');
-          MessagesService.postMessage(req.app.get('db'), message)
-            .then(message => res.status(201).json(MessagesService.serialize([message])));
+          MessagesService.postMessage(req.app.get('db'), {message: message, archived: false, flagged: false, user_id: req.user.id})
+            .then(message => res.status(201).json(MessagesService.serialize(message)));
         });
-      });
+      })
+        .catch(next);
     }});
 
 MessagesRouter
