@@ -19,6 +19,11 @@ const MessagesService = {
       .limit(1);
   },
 
+  postMessage(db, message) {
+    console.log(message);
+    return db.insert(message).into('messages').returning('*').then(rows => rows[0]);
+  },
+
   serialize(message) {
     return {
       id: message.id,
