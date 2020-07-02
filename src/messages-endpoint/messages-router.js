@@ -60,7 +60,7 @@ MessagesRouter
 
 MessagesRouter
   //get route in ALL messages returning ONLY the messages belonging to that user
-  .route('/')
+  .route('/userData')
   .get(requireAuth, dataParser, (req, res, next) => {
     UsersService.getUsersMessages(
       req.app.get('db'),
@@ -71,22 +71,25 @@ MessagesRouter
       })
       .catch(next);
   })
-  .delete(requireAuth, (req, res, next) => {
+  .delete(requireAuth, dataParser, (req, res, next) => {
+    // console.log(req.user.id)
+    // console.log(req.body.id)
     UsersService.deleteSingleMessage(
       req.app.get('db'),
       req.user.id,
-      req.id
+      req.body.id
     )
       .then(data => {
         res.json(data);
       })
       .catch(next);
   })
-  .patch(requireAuth, (req, res, next) => {
+  .patch(requireAuth, dataParser, (req, res, next) => {
+    // console.log(req.body)
     UsersService.editSingleMessage(
       req.app.get('db'),
       req.user.id,
-      req.id
+      req.body
     )
       .then(data => {
         res.json(data);
