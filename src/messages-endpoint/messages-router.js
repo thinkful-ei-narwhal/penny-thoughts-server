@@ -5,7 +5,6 @@ const toxicity = require('@tensorflow-models/toxicity');
 const dataParser = express.json();
 const { requireAuth } = require('../middleware/jwt-auth');
 const MessagesService = require('./messages-service');
-const toxicity = require('@tensorflow-models/toxicity');
 //import usersService to handle message API calls for a specific USER: 
 const UsersService = require('../users-endpoint/usersService');
 const { ConsoleTransportOptions } = require('winston/lib/winston/transports');
