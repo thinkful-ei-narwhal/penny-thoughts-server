@@ -63,23 +63,24 @@ const UsersService = {
       .then(([data]) => data);
   },
 
-  deleteUser(db, user) {
+  deleteUser(db, req) {
+    console.log('user ID:', req.user);
     return db.transaction(trx =>
       Promise.all([
         db('users')
           .transacting(trx)
-          .where('id', user.id)
+          .where('id', req.user.id)
           .del(),
         db('messages')
           .transacting(trx)
-          .where('user_id', user.id)
+          .where('user_id', req.user.id)
           .del()
       ]));
   },
 
   banHammer(db, user, banned_id) {
     if (user.admin !== true) {
-      return db('users') 
+      return db('users')
         .where('id', user.id)
         .update({ banned: true });
     }
