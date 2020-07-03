@@ -24,6 +24,36 @@ const MessagesService = {
     return db.insert(message).into('messages').returning('*').then(rows => rows[0]);
   },
 
+  getUsersMessages(db, user) {
+    return db
+      .from('messages')
+      .where('user_id', user)
+      .returning('*')
+      .then(([data]) => data);
+  },
+
+  deleteSingleMessage(db, user, id) {
+    return db('messages')
+      .where('user_id', user)
+      .andWhere('id', id)
+      .del()
+      .returning('*')
+      .then(([data]) => data);
+  },
+
+  editSingleMessage(db, user, body) {
+    return db('messages')
+      .where('user_id', user)
+      .andWhere('id', body.id)
+      .update({
+        message: body.message,
+        date_modified: body.modified
+      })
+      .returning('*')
+      .then(([data]) => data);
+  },
+
+
   serialize(message) {
     return {
       id: message.id,
