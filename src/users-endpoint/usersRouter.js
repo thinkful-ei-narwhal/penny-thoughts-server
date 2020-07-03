@@ -7,7 +7,7 @@ const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
 usersRouter
-
+  .route('/')
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
 
@@ -59,7 +59,7 @@ usersRouter
 
   .delete(requireAuth, (req, res, next) => {
     // console.log('requireAuth:', requireAuth());
-    console.log('req.user.id:', req.user.id);
+    // console.log('req.user.id:', req.user.id);
     UsersService.deleteUser(
       req.app.get('db'),
       req

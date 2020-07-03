@@ -61,29 +61,33 @@ const UsersService = {
 
   // move to messages endpoint
   getUsersMessages(db, user) {
+    // console.log(user);
     return db
       .from('messages')
-      .where('user_id', user.id)
+      .where('user_id', user)
       .returning('*')
       .then(([data]) => data);
   },
 
   deleteSingleMessage(db, user, id) {
+    // console.log(user)
+    // console.log(id)
     return db('messages')
-      .where('user_id', user.id)
+      .where('user_id', user)
       .andWhere('id', id)
       .del()
       .returning('*')
       .then(([data]) => data);
   },
 
-  editSingleMessage(db, user, id, req) {
+  editSingleMessage(db, user, body) {
+    // console.log(body)
     return db('messages')
-      .where('user_id', user.id)
-      .andWhere('id', id)
+      .where('user_id', user)
+      .andWhere('id', body.id)
       .update({
-        message: req.body.message,
-        date_modified: req.body.modified
+        message: body.message,
+        date_modified: body.modified
       })
       .returning('*')
       .then(([data]) => data);
