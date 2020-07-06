@@ -37,7 +37,7 @@ MessagesRouter
           while (!tox && i < predictions.length - 1) {
             if ([null, true].includes(predictions[i].results[0].match)) {
               tox = true;
-              return res.status(400).json('Your message was rejected by the system!  Please find something nicer to say!');
+              return res.status(400).json('Your message was rejected by the system! Please find something nicer to say!');
             }
             i++;
           }
@@ -50,9 +50,9 @@ MessagesRouter
   });
 
 MessagesRouter
-  .route('/single')
+  .route('/single/:id')
   .get((req, res, next) => {
-    MessagesService.getOneRandom(req.app.get('db'))
+    MessagesService.getOneRandom(req.app.get('db'), req.params.id)
       .then(messages => res.json(messages.map(message => MessagesService.serialize(message))))
       .catch(next);
   });

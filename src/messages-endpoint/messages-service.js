@@ -10,14 +10,23 @@ const MessagesService = {
       .limit(10);
   },
 
-  getOneRandom(db) {
+  getOneRandom(db, id) {
     return db
       .from('messages')
       .select('*')
       .orderByRaw('random()')
-      .where('flagged', 'false')
+      .whereNot({ id })
       .limit(1);
   },
+
+  // getRandom(db, id) {
+  //   return db
+  //     .from('messages')
+  //     .select('*')
+  //     .orderByRaw('random()')
+  //     .whereNot({ id })
+  //     .limit(1);
+  // }
 
   postMessage(db, message) {
     console.log(message);
