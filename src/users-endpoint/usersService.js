@@ -20,13 +20,18 @@ const UsersService = {
 
   validatePassword(password) {
     if (password.length < 7) {
-      return 'Password is too short';
+      return `Password is too short.  Must be longer than 6 characters.
+      Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char.` ;
     }
     if (password.length > 26) {
-      return 'Password is too long';
+      return `Password is too long.  Password must be less than 26 characters.
+      Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char.`;
     }
     if (password.startsWith(' ') || password.endsWith(' ')) {
-      return 'Password cannot start or end with empty spaces';
+      return `Password cannot start or end with empty spaces.
+      Password must contain an uppercase, lowercase, number and a special char`;
     }
     if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
       return 'Password must contain an uppercase, lowercase, number and a special char';
@@ -55,31 +60,25 @@ const UsersService = {
 
 
   // move to messages endpoint
-  getUsersMessages(db, user) {
-    return db
-      .from('messages')
-      .where('id', user.id)
-      .returning('*')
-      .then(([data]) => data);
-  },
-
-  deleteUser(db, user) {
+  
+  deleteUser(db, req) {
+    // console.log('user ID:', req.user);
     return db.transaction(trx =>
       Promise.all([
         db('users')
           .transacting(trx)
-          .where('id', user.id)
+          .where('id', req.user.id)
           .del(),
         db('messages')
           .transacting(trx)
-          .where('user_id', user.id)
+          .where('user_id', req.user.id)
           .del()
       ]));
   },
 
   banHammer(db, user, banned_id) {
     if (user.admin !== true) {
-      return db('users') 
+      return db('users')
         .where('id', user.id)
         .update({ banned: true });
     }
