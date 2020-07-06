@@ -16,6 +16,7 @@ const MessagesService = {
       .select('*')
       .orderByRaw('random()')
       .whereNot({ id })
+      .where('flagged', 'false')
       .limit(1);
   },
 
