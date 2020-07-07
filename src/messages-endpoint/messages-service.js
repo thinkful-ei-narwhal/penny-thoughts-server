@@ -29,7 +29,7 @@ const MessagesService = {
       .from('messages')
       .where('user_id', user)
       .returning('*')
-      .then(([data]) => data);
+      .then((data) => data);
   },
 
   deleteSingleMessage(db, user, id) {
@@ -42,6 +42,7 @@ const MessagesService = {
   },
 
   editSingleMessage(db, user, body) {
+    // console.log(body)
     return db('messages')
       .where('user_id', user)
       .andWhere('id', body.id)
