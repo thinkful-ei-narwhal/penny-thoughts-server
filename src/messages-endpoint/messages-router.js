@@ -71,40 +71,38 @@ MessagesRouter
       .catch(next);
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
-    const { message } = req.body;
+    console.log(req.body);
+
     const threshold = 0.85;
 
-
-    if (!message) {
-      return res.status(400).json({ error: 'message must exist' });
+    if (!req.body.message) {
+      return res.status(400).json('message must exist');
     }
 
-    if (message && message.length > 1) {
-
-
+    if (req.body.message && req.body.message.length > 1) {
       toxicity.load(threshold).then(model => {
-        model.classify(message).then(predictions => {
+        model.classify(req.body.message).then(predictions => {
           let tox = false;
           let i = 0;
 
           while (!tox && i < predictions.length - 1) {
             if ([null, true].includes(predictions[i].results[0].match)) {
               tox = true;
-              return res.status(400).json('Your message was rejected by the system!  Please find something nicer to say!');
+              return res.status(400).json('Your message was rejected by the system! Please find something nicer to say!');
             }
             i++;
           }
           MessagesService.editSingleMessage(
             req.app.get('db'),
             req.user.id,
-            message
+            req.body
           )
-            .then(() => {
-              res.status(204).send();
-            })
-            .catch(next);
+            .then(
+              res.status(204).send()
+            );
         });
-      });
+      })
+        .catch(next);
     }
   })
   .delete(requireAuth, dataParser, (req, res, next) => {
@@ -118,6 +116,6 @@ MessagesRouter
       })
       .catch(next);
   });
-  
+
 
 module.exports = MessagesRouter;
