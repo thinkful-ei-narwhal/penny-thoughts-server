@@ -20,14 +20,6 @@ const MessagesService = {
       .limit(1);
   },
 
-  // getRandom(db, id) {
-  //   return db
-  //     .from('messages')
-  //     .select('*')
-  //     .orderByRaw('random()')
-  //     .whereNot({ id })
-  //     .limit(1);
-  // }
 
   postMessage(db, message) {
     console.log(message);
