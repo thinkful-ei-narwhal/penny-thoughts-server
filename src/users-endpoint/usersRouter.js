@@ -8,6 +8,15 @@ const jsonBodyParser = express.json();
 
 usersRouter
   .route('/')
+  .get(requireAuth, (req, res, next) => {
+    if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' })
+    UsersService.getUserData(req.app.get('db'), req.user.id)
+      .then(res => {
+        // THE FOLLOWING LINE IS NOT FINISHED
+        res.json(res)
+      })
+      .catch(next)
+  })
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
 
@@ -56,7 +65,6 @@ usersRouter
       })
       .catch(next);
   })
-
   .delete(requireAuth, (req, res, next) => {
     // console.log('requireAuth:', requireAuth());
     // console.log('req.user.id:', req.user.id);

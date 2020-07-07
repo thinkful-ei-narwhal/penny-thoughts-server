@@ -18,6 +18,14 @@ const UsersService = {
       .then(([user]) => user);
   },
 
+  // STILL WORKING ON
+  getUserData(db, id) {
+    return db('users')
+      .select('full_name', 'email')
+      .where({ id })
+      .first()
+  },
+
   validatePassword(password) {
     if (password.length < 7) {
       return `Password is too short.  Must be longer than 6 characters.
