@@ -72,7 +72,7 @@ MessagesRouter
       .catch(next);
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body);
 
     const threshold = 0.85;
 
@@ -89,7 +89,7 @@ MessagesRouter
           while (!tox && i < predictions.length - 1) {
             if ([null, true].includes(predictions[i].results[0].match)) {
               tox = true;
-              return res.status(403).json(`Your message "${req.body.message}" was rejected by the system! Please find something nicer to say!`);
+              return res.status(400).json('Your message was rejected by the system! Please find something nicer to say!');
             }
             i++;
           }
@@ -99,11 +99,11 @@ MessagesRouter
             req.body
           )
             .then(
-              res.status(204).end()
-            )
-            .catch(next);
+              res.status(204).send('thing')
+            );
         });
-      });
+      })
+        .catch(next);
     }
   })
   .delete(requireAuth, dataParser, (req, res, next) => {

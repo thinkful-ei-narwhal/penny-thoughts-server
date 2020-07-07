@@ -27,18 +27,14 @@ const MessagesService = {
   getUsersMessages(db, user) {
     return db
       .from('messages')
-      .where('user_id', user)
-      .returning('*')
-      .then((data) => data);
+      .where('user_id', user);
   },
 
   deleteSingleMessage(db, user, id) {
     return db('messages')
       .where('user_id', user)
       .andWhere('id', id)
-      .del()
-      .returning('*')
-      .then(([data]) => data);
+      .del();
   },
 
   editSingleMessage(db, user, body) {
@@ -51,7 +47,7 @@ const MessagesService = {
         date_modified: body.modified
       })
       .returning('*')
-      .then(([data]) => data);
+      .then(rows => rows[0]);
   },
 
 
