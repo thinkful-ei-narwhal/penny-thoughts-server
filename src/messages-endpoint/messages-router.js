@@ -99,7 +99,7 @@ MessagesRouter
             req.body
           )
             .then(
-              res.status(204).send('thing')
+              res.status(204).send()
             );
         });
       })
