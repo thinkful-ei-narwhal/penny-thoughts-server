@@ -77,7 +77,7 @@ MessagesRouter
     const threshold = 0.85;
 
     if (!req.body.message) {
-      return res.status(400).json({ error: 'message must exist' });
+      return res.status(400).json('message must exist');
     }
 
     if (req.body.message && req.body.message.length > 1) {
