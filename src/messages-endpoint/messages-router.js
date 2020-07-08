@@ -57,7 +57,6 @@ MessagesRouter
       .catch(next);
   });
 
-
 // ++++++++++++++++++++++++MESSAGES BELONGING TO USER AND OPTIONS FOR SUCH++++++++++++++++++++++++++++++++++++
 
 MessagesRouter

@@ -5,7 +5,7 @@ const config = require('../config');
 const AuthService = {
   getUserWithUserName(db, username) {
     return db('users') // IMPORTANT, PUT USERS TABLE NAME HERE
-      .where({ username })
+      .where({ username: username })
       .first();
   },
 
@@ -28,7 +28,7 @@ const AuthService = {
       .from(token, 'base64')
       .toString()
       .split(':');
-  },
+  }
 };
 
 

@@ -2,12 +2,28 @@ const express = require('express');
 const path = require('path');
 const UsersService = require('./usersService');
 const { requireAuth } = require('../middleware/jwt-auth');
+const { response } = require('../app');
+const { userInfo } = require('os');
 
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
 usersRouter
   .route('/')
+  .get(requireAuth, (req, res, next) => {
+    if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' })
+    UsersService.getUserData(req.app.get('db'), req.user.id)
+      .then(response => {
+        let userFullName = JSON.parse(response.full_name)
+        let userEmail = JSON.parse(response.email)
+
+        res.json({
+          full_name: UsersService.decrypt(userFullName),
+          email: UsersService.decrypt(userEmail)
+        })
+      })
+      .catch(next)
+  })
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
 
@@ -17,8 +33,8 @@ usersRouter
           error: `Missing '${field}' in request body`
         });
 
-    //leave here until we tackle admin user stories
-    const admin = false;
+    // leave here until we tackle admin user stories
+    let admin = false;
 
     const passwordError = UsersService.validatePassword(password);
     if (passwordError)
@@ -29,16 +45,23 @@ usersRouter
       username
     )
       .then(hasUsername => {
-        if (hasUsername)
+        if (hasUsername) {
           return res.status(400).json({ error: 'Username already taken' });
+        }
 
         return UsersService.hashPassword(password)
           .then(hashedPassword => {
+            let userFull_Name = UsersService.encrypt(full_name)
+            let userEmail = UsersService.encrypt(email)
+
+            console.log('name', userFull_Name)
+            console.log('email', userEmail)
+
             const newUser = {
               username,
               password: hashedPassword,
-              full_name,
-              email,
+              full_name: userFull_Name,
+              email: userEmail,
               admin
             };
 
@@ -56,7 +79,6 @@ usersRouter
       })
       .catch(next);
   })
-
   .delete(requireAuth, (req, res, next) => {
     // console.log('requireAuth:', requireAuth());
     // console.log('req.user.id:', req.user.id);
