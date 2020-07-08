@@ -52,6 +52,12 @@ const MessagesService = {
       .then(rows => rows[0]);
   },
 
+  flagMessage(db, id) {
+    return db('messages')
+      .where('id', id)
+      .update({ flagged: true });
+  },
+
 
   serialize(message) {
     return {

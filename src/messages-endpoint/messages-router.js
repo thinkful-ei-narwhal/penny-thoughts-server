@@ -118,5 +118,31 @@ MessagesRouter
       .catch(next);
   });
 
+MessagesRouter
+  .route('/report')
+  .patch(requireAuth, dataParser, (req, res, next) => {
+    const {
+      id
+    } = req.body;
 
+    const newMessage = {
+      id 
+    };
+    for (const [key, value] of Object.entries(newMessage))
+      if (value == null)
+        return res.status(400).json({
+          error: { message: `Missing '${key}' in request body` }
+        });
+
+    MessagesService.flagMessage(
+      req.app.get('db'),
+      newMessage.id
+    )
+      .then(newMessage => {
+        res
+          .status(204).send();
+      })
+      .catch(next);
+  });
+  
 module.exports = MessagesRouter;
