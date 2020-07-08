@@ -7,8 +7,8 @@ TRUNCATE
 INSERT INTO users (full_name, username, email, reported_count, daily_count, banned, admin, password)
 VALUES
 
-('$2y$12$DcXPqp1cR.ZAyKhh0W.tre.9gqCh0.Vhl09EraDCHKoOTeoLBy3/K', '$2y$12$m4CC0X/5tZ9dQXICSo5Duumnp/6PamoUMXW.bxMbvcXvd.7hOcPTq', '$2y$12$dTMw7na7OkgCN1y1FYTgbO3UU9toHZBmMu3uUdP0xUdrZYSVYcCJW', 0, 0, FALSE, TRUE, '$2y$12$tYIjrKsOGna4rbojZv3Fd.f9as95QG7fLmJ1KCDxuAFiZHkq0YqbS'),
-('$2y$12$GrKd04/KDnjtxMpzSvHEbucEFQnDtySHavMhFOJVxn4YfedjgELsa', '$2y$12$029iSROwq4mlzAr52qngwOluuiUyy5TGHBI6bum3r5fPVUCt2Tfse', '$2y$12$XnWnEwkNffoNnabhBtPXm.fzNqmi1h7tgDOZMfebTlbBtz58gKtaG', 0, 0, FALSE, FALSE, '$2y$12$o8x/EkucH4Xiw0TwQgqxJ.dvgMDYBZ/VDAGZ/4hrW58qJAkir77t.');
+('{\"iv\":\"6f3dec41b8d23ea1c17a765f542c4216\",\"encryptedData\":\"4ba31def16e6c2e3c7b6b5f1b8223688\"}', 'admin1', '{\"iv\":\"6f3dec41b8d23ea1c17a765f542c4216\",\"encryptedData\":\"a0d47fee849f0a7fde27c276458fd4e5\"}', 0, 0, FALSE, TRUE, '$2a$12$Bb32xLAKgB5IBLEpSK1.4OIhzegi53MuUo24j7twUsxttcBVPWuge'),
+('{\"iv\":\"6f3dec41b8d23ea1c17a765f542c4216\",\"encryptedData\":\"4ba31def16e6c2e3c7b6b5f1b8223688\"}', 'admin2', '{\"iv\":\"6f3dec41b8d23ea1c17a765f542c4216\",\"encryptedData\":\"20ef1ac3a5032294d1f9cb9d739da68af9dd8a3f110eeb11cd2b033e8e32cd7a\"}', 0, 0, FALSE, FALSE, '$2a$12$EA/pj9jZ2bzhZjJbTUW7yuxGDElDsFpnZmhBdPoetNXsVlPkletT.');
 
 INSERT INTO messages (message, archived, flagged, user_id)
 VALUES
