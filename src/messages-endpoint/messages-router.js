@@ -57,6 +57,15 @@ MessagesRouter
       .catch(next);
   });
 
+MessagesRouter
+  .route('/flagged')
+  .get(requireAuth, (req, res, next) => {
+    if (!req.user.admin) return res.status(401).json('You must have admin priviledges to access that data.')
+    MessagesService.getFlaggedMessages(req.app.get('db'))
+      .then(messages => res.json(messages.map(message => MessagesService.serialize(message))))
+      .catch(next)
+  })
+
 // ++++++++++++++++++++++++MESSAGES BELONGING TO USER AND OPTIONS FOR SUCH++++++++++++++++++++++++++++++++++++
 
 MessagesRouter

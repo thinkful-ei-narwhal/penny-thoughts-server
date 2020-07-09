@@ -32,6 +32,12 @@ const MessagesService = {
       .where('user_id', user);
   },
 
+  getFlaggedMessages(db) {
+    return db('messages')
+      .select('*')
+      .where('flagged', 'true')
+  },
+
   deleteSingleMessage(db, user, id) {
     return db('messages')
       .where('user_id', user)
