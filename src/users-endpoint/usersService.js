@@ -92,9 +92,8 @@ const UsersService = {
 
 
   // move to messages endpoint
-  
+
   deleteUser(db, req) {
-    // console.log('user ID:', req.user);
     return db.transaction(trx =>
       Promise.all([
         db('users')
@@ -120,7 +119,7 @@ const UsersService = {
   },
 
   editUserInfo(db, user, newData) {
-    
+
     return db('users')
       .where('id', user)
       .update({

@@ -22,7 +22,6 @@ const MessagesService = {
 
 
   postMessage(db, message) {
-    console.log(message);
     return db.insert(message).into('messages').returning('*').then(rows => rows[0]);
   },
 
@@ -46,7 +45,6 @@ const MessagesService = {
   },
 
   editSingleMessage(db, user, body) {
-    // console.log(body)
     return db('messages')
       .where('user_id', user)
       .andWhere('id', body.id)
