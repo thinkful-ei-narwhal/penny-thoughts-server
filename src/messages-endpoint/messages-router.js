@@ -71,17 +71,17 @@ MessagesRouter
       .catch(next);
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
-    console.log(req.body);
 
+    const {id, message } = req.body;
     const threshold = 0.85;
 
-    if (!req.body.message) {
+    if (!message) {
       return res.status(400).json('message must exist');
     }
 
-    if (req.body.message && req.body.message.length > 1) {
+    if (message && message.length > 1) {
       toxicity.load(threshold).then(model => {
-        model.classify(req.body.message).then(predictions => {
+        model.classify(message).then(predictions => {
           let tox = false;
           let i = 0;
 
@@ -95,7 +95,7 @@ MessagesRouter
           MessagesService.editSingleMessage(
             req.app.get('db'),
             req.user.id,
-            req.body
+            {id: id, message: message, modified: new Date()}
           )
             .then(
               res.status(204).send()
