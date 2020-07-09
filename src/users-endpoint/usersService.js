@@ -117,7 +117,19 @@ const UsersService = {
     return db('users')
       .where('id', banned_id)
       .update({ banned: true });
-  }
+  },
+
+  editUserInfo(db, user, newData) {
+    
+    return db('users')
+      .where('id', user)
+      .update({
+        email: newData.userEmail,
+        full_name: newData.userFull_Name
+      })
+      .returning('*')
+      .then(rows => rows[0]);
+  },
 };
 
 module.exports = UsersService;

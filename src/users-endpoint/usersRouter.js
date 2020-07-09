@@ -90,11 +90,40 @@ usersRouter
         res.status(201).json({ success: true });
       })
       .catch(next);
+  })
+  .patch(requireAuth, jsonBodyParser, (req, res, next) => {
+    const { 
+      full_name,
+      email
+    } = req.body;
+
+    let userFull_Name = UsersService.encrypt(full_name)
+    let userEmail = UsersService.encrypt(email)
+
+    const newData = {
+      userFull_Name,
+      userEmail,
+    }
+    
+    const numberOfValues = Object.values(newData).filter(Boolean).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must contain either 'email' or 'name'`
+        }
+      });
+
+    UsersService.editUserInfo(
+      req.app.get('db'),
+      req.user.id,
+      newData
+    )
+      .then((data) => {
+        console.log('data returned from DB',data)
+        res.status(201).json(UsersService.serializeUser(data))
+      })
+  
+      .catch(next);
   });
 
 module.exports = usersRouter;
-
-
-
-
-
