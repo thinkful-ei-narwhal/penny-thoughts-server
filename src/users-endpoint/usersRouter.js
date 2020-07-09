@@ -54,9 +54,6 @@ usersRouter
             let userFull_Name = UsersService.encrypt(full_name)
             let userEmail = UsersService.encrypt(email)
 
-            console.log('name', userFull_Name)
-            console.log('email', userEmail)
-
             const newUser = {
               username,
               password: hashedPassword,
@@ -80,8 +77,6 @@ usersRouter
       .catch(next);
   })
   .delete(requireAuth, (req, res, next) => {
-    // console.log('requireAuth:', requireAuth());
-    // console.log('req.user.id:', req.user.id);
     UsersService.deleteUser(
       req.app.get('db'),
       req
@@ -92,7 +87,7 @@ usersRouter
       .catch(next);
   })
   .patch(requireAuth, jsonBodyParser, (req, res, next) => {
-    const { 
+    const {
       full_name,
       email
     } = req.body;
@@ -104,7 +99,7 @@ usersRouter
       userFull_Name,
       userEmail,
     }
-    
+
     const numberOfValues = Object.values(newData).filter(Boolean).length;
     if (numberOfValues === 0)
       return res.status(400).json({
@@ -119,10 +114,9 @@ usersRouter
       newData
     )
       .then((data) => {
-        console.log('data returned from DB',data)
         res.status(201).json(UsersService.serializeUser(data))
       })
-  
+
       .catch(next);
   });
 
