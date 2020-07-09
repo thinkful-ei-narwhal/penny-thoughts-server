@@ -62,6 +62,17 @@ const MessagesService = {
       .update({ flagged: true });
   },
 
+  unflagMessage(db, id) {
+    return db('messages')
+      .where('id', id)
+      .update({ flagged: false });
+  },
+
+  archiveMessage(db, id) {
+    return db('messages')
+      .where('id', id)
+      .update({ archived: true })
+  },
 
   serialize(message) {
     return {
