@@ -102,9 +102,9 @@ usersRouter
 
     const newData = {
       userFull_Name,
-      userEmail
+      userEmail,
     }
-
+    
     const numberOfValues = Object.values(newData).filter(Boolean).length;
     if (numberOfValues === 0)
       return res.status(400).json({
@@ -116,27 +116,14 @@ usersRouter
     UsersService.editUserInfo(
       req.app.get('db'),
       req.user.id,
-      req.body, 
       newData
     )
       .then((data) => {
         console.log('data returned from DB',data)
         res.status(201).json(UsersService.serializeUser(data))
       })
-      // If we update username, this happens:
-      //user info is updated so TOKEN is outdated
-      //we need to destroy the token and update the new token
-      //once the token is updated, 
+  
       .catch(next);
   });
 
 module.exports = usersRouter;
-
-
-
-
-// full_name
-// {"iv":"631e5745bf86969ae92250ec45005d19","encryptedData":"60b85c5fe4654fe7f3792cef3d3c1e61"}
-
-// email
-// {"iv":"631e5745bf86969ae92250ec45005d19","encryptedData":"12de6b96c616234c44b1597de10ccea2"}
