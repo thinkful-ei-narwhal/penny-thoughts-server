@@ -25,17 +25,17 @@ authRouter
         }
         
         return AuthService.comparePasswords(loginUser.password, user.password)
-        .then(isMatch => {
-          if (!isMatch) {
-            return res.status(400).json({ error: 'Incorrect username or password' });
-          }
-          const sub = user.username;
-          const payload = {
-            user_id: user.id,
-            admin: user.admin
-          };
-          res.send({ authToken: AuthService.createJwt(sub, payload) });
-        });
+          .then(isMatch => {
+            if (!isMatch) {
+              return res.status(400).json({ error: 'Incorrect username or password' });
+            }
+            const sub = user.username;
+            const payload = {
+              user_id: user.id,
+              admin: user.admin
+            };
+            res.send({ authToken: AuthService.createJwt(sub, payload) });
+          });
       })
       .catch(next);
   });
