@@ -19,7 +19,7 @@ MessagesRouter
   })
   .post([express.json(), requireAuth], (req, res, next) => {
     const { message } = req.body;
-    const threshold = 0.99;
+    const threshold = 0.85;
 
 
     if (!message) {
