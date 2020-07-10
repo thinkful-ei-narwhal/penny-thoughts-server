@@ -113,8 +113,8 @@ usersRouter
       req.user.id,
       newData
     )
-      .then((data) => {
-        res.status(201).json(UsersService.serializeUser(data))
+      .then(() => {
+        res.status(204).send();
       })
 
       .catch(next);
