@@ -20,7 +20,6 @@ const MessagesService = {
       .limit(1);
   },
 
-
   postMessage(db, message) {
     return db.insert(message).into('messages').returning('*').then(rows => rows[0]);
   },
@@ -34,7 +33,10 @@ const MessagesService = {
   getFlaggedMessages(db) {
     return db('messages')
       .select('*')
-      .where('flagged', 'true')
+      .where({
+        flagged: true,
+        archived: false
+      })
   },
 
   deleteSingleMessage(db, user, id) {
