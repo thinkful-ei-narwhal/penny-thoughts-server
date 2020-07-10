@@ -24,9 +24,19 @@ const MessagesService = {
     return db.insert(message).into('messages').returning('*').then(rows => rows[0]);
   },
 
-  getUsersMessages(db, user) {
-    return db
-      .from('messages')
+  getUsersMessages(db, user, page) {
+    const productsPerPage = 10;
+    const offset = productsPerPage * (page - 1);
+    return db('messages')
+      .select('*')
+      .where('user_id', user)
+      .limit(productsPerPage)
+      .offset(offset);
+  },
+
+  getUsersMessagePageCount(db, user) {
+    return db('messages')
+      .count('*')
       .where('user_id', user);
   },
 
@@ -36,7 +46,7 @@ const MessagesService = {
       .where({
         flagged: true,
         archived: false
-      })
+      });
   },
 
   deleteSingleMessage(db, user, id) {
@@ -73,7 +83,7 @@ const MessagesService = {
   archiveMessage(db, id) {
     return db('messages')
       .where('id', id)
-      .update({ archived: true })
+      .update({ archived: true });
   },
 
   serialize(message) {
