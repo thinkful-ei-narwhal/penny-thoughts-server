@@ -19,7 +19,7 @@ MessagesRouter
   })
   .post([express.json(), requireAuth], (req, res, next) => {
     const { message } = req.body;
-    const threshold = 0.85;
+    const threshold = 0.99;
 
 
     if (!message) {
@@ -81,7 +81,7 @@ MessagesRouter
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
 
-    const {id, message } = req.body;
+    const { id, message } = req.body;
     const threshold = 0.85;
 
     if (!message) {
@@ -104,7 +104,7 @@ MessagesRouter
           MessagesService.editSingleMessage(
             req.app.get('db'),
             req.user.id,
-            {id: id, message: message, modified: new Date()}
+            { id: id, message: message, modified: new Date() }
           )
             .then(
               res.status(204).send()
@@ -134,7 +134,7 @@ MessagesRouter
     } = req.body;
 
     const newMessage = {
-      id 
+      id
     };
     for (const [key, value] of Object.entries(newMessage))
       if (value == null)
@@ -152,5 +152,5 @@ MessagesRouter
       })
       .catch(next);
   });
-  
+
 module.exports = MessagesRouter;
