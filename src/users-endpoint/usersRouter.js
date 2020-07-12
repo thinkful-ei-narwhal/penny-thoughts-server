@@ -14,8 +14,8 @@ usersRouter
     if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' })
     UsersService.getUserData(req.app.get('db'), req.user.id)
       .then(response => {
-        let userFullName = JSON.parse(response.full_name)
-        let userEmail = JSON.parse(response.email)
+        let userFullName = response.full_name;
+        let userEmail = response.email;
 
         res.json({
           full_name: UsersService.decrypt(userFullName),
