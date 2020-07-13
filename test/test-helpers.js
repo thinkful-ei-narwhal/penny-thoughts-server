@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const date = new Date()
 
 function makeUsersArray() {
   return [{
       id: 1,
-      user_name: 'test-user-1',
+      username: 'test-user-1',
       full_name: 'U2FsdGVkX1/pV2JzgLP4FWtA4U95wGFLIsKoAV6zPRw=',
       email:'U2FsdGVkX19l+PV0/GohQDBywwAmHUp/E312Uthm7yO7bAZGVxULzS/RawiYhCi0',
       password: '$2a$12$OAUEOxC5mDlS42Zi02fETufYEQqLfFpqRxh4M9kemEirjaVsFXK6K',
@@ -12,12 +13,12 @@ function makeUsersArray() {
       daily_count:0,
       banned:false,
       admin:false,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified:null
     },
     {
       id: 2,
-      user_name: 'test-user-2',
+      username: 'test-user-2',
       full_name: 'U2FsdGVkX1+X/rQhp2UtKck8A2YqXRJ13GyCAYnbOc0=',
       email:'U2FsdGVkX1+3/igKdY2Ep9wjy2FuLmJ3eCWteLxLipA=',
       password: '$2a$12$3fgqkJYeRxLIrHNid1/hbOkZ8ED0v65xYHRUH3Lk3Zu1X7uNFKYLW',
@@ -25,12 +26,12 @@ function makeUsersArray() {
       daily_count:0,
       banned:false,
       admin:false,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified:null
     },
     {
       id: 3,
-      user_name: 'test-user-3',
+      username: 'test-user-3',
       full_name: 'U2FsdGVkX1/J4Ma7suqs+bXne/qsE9sZ6cbr6LNQgAw=',
       email:'U2FsdGVkX18EJmWtTWTw6cSA5CWCEI4cep2q5Evu9CHCQK5A62RSWDDUz1iM2Xw2',
       password: '$2a$12$Bb32xLAKgB5IBLEpSK1.4OIhzegi53MuUo24j7twUsxttcBVPWuge',
@@ -38,12 +39,12 @@ function makeUsersArray() {
       daily_count:0,
       banned:false,
       admin:true,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified:null
     },
     {
       id: 4,
-      user_name: 'test-user-4',
+      username: 'test-user-4',
       full_name: 'U2FsdGVkX18/UMPf0wy2VjP3ZRPrvvH0xz1zPc/hNBM=',
       email:'U2FsdGVkX1+RTnd8ulu0duVCG/sb78ipMxeSCI6X/nY=',
       password: '$2a$12$EA/pj9jZ2bzhZjJbTUW7yuxGDElDsFpnZmhBdPoetNXsVlPkletT.',
@@ -51,7 +52,7 @@ function makeUsersArray() {
       daily_count:0,
       banned:false,
       admin:false,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified:null
     },
   ]
@@ -64,7 +65,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[0].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -73,7 +74,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[1].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -82,7 +83,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[2].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -91,7 +92,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[3].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -100,7 +101,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[0].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -109,7 +110,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[1].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -118,7 +119,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[2].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -127,7 +128,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[3].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -136,7 +137,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:true,
       user_id: users[0].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -145,7 +146,7 @@ function makeMessagesArray(users) {
       archived:true,
       flagged:true,
       user_id: users[1].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -154,7 +155,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[2].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
     {
@@ -163,7 +164,7 @@ function makeMessagesArray(users) {
       archived:false,
       flagged:false,
       user_id: users[3].id,
-      date_created: '2029-01-22T16:28:32.615Z',
+      date_created: date.toISOString(),
       date_modified: null
     },
   ];
@@ -183,10 +184,10 @@ function makeExpectedMessages(message) {
 
 function makeMessagesFixtures() {
   const testUsers = makeUsersArray()
-  const testMessage = makeHabitsArray(testUsers)
+  const testMessages = makeMessagesArray(testUsers)
   return {
     testUsers,
-    testMessage
+    testMessages
   }
 }
 
@@ -195,9 +196,16 @@ function cleanTables(db) {
     trx.raw(
       `TRUNCATE
       users,
-      messages,
-      restart identity cascade
+      messages
     `
+    )
+    .then(() =>
+      Promise.all([
+        trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`ALTER SEQUENCE messages_id_seq minvalue 0 START WITH 1`),
+        trx.raw(`SELECT setval('users_id_seq', 0)`),
+        trx.raw(`SELECT setval('messages_id_seq', 0)`),
+      ])
     )
     )
 }
@@ -221,7 +229,7 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({
     user_id: user.id
   }, secret, {
-    subject: user.user_name,
+    subject: user.username,
     algorithm: 'HS256',
   });
   return `Bearer ${token}`;
@@ -233,7 +241,7 @@ function seedMessagesTables(db, users, messages = []) {
     await trx.into('messages').insert(messages)
     await trx.raw(
       `SELECT setval('messages_id_seq', ?)`,
-      messages[messages.length - 1].id,
+      [messages[messages.length - 1].id],
     )
   })
 }

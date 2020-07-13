@@ -9,5 +9,5 @@ CREATE TABLE users (
   banned BOOLEAN NOT NULL DEFAULT FALSE,
   admin BOOLEAN NOT NULL,
   date_created TIMESTAMPTZ NOT NULL DEFAULT now(),
-  date_modified TIMESTAMPTZ
+  date_modified TIMESTAMPTZ DEFAULT NULL
 );
