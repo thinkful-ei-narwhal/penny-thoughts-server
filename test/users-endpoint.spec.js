@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const { response } = require('express');
 const { expect } = require('chai');
 
-describe('Messages Endpoints', function () {
+describe('Users Endpoints', function () {
   let db;
   
   const {
