@@ -93,8 +93,8 @@ const MessagesService = {
       archived: message.archived,
       flagged: message.flagged,
       user_id: message.user_id,
-      date_created: xss(message.date_created),
-      date_modified: xss(message.date_modified),
+      date_created: message.date_created,
+      date_modified: message.date_modified,
     };
   }
 };

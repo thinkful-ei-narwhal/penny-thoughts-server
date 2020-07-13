@@ -5,5 +5,5 @@ CREATE TABLE messages (
   flagged BOOLEAN NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   date_created TIMESTAMPTZ NOT NULL DEFAULT now(),
-  date_modified TIMESTAMPTZ
+  date_modified TIMESTAMPTZ DEFAULT NULL
 );
