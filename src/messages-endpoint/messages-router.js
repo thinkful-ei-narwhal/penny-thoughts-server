@@ -110,19 +110,21 @@ MessagesRouter
 
 MessagesRouter
   //gets number of pages
-  .route('/userData/page')
-  .get(requireAuth, dataParser, (req, res, next) => {
+  .route('/pageCount')
+  .get(requireAuth, (req, res, next) => {
     MessagesService.getUsersMessagePageCount(
       req.app.get('db'),
       req.user.id
     )
-      .then(messages => res.json(messages.map(message => MessagesService.serialize(message))))
+      .then(count => {
+        res.json(count);
+      })
       .catch(next);
   });
 
 MessagesRouter
   //patch route to edit messages
-  .route('/userData/')
+  .route('/userData')
   .patch(requireAuth, dataParser, (req, res, next) => {
 
     const { id, message } = req.body;
