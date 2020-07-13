@@ -98,7 +98,7 @@ usersRouter
     const newData = {
       userFull_Name,
       userEmail,
-    }
+    };
 
     const numberOfValues = Object.values(newData).filter(Boolean).length;
     if (numberOfValues === 0)
