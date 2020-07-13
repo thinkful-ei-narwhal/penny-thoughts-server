@@ -4,7 +4,7 @@ const helpers = require('./test-helpers');
 
 describe('Messages Endpoints', function () {
   let db;
-  
+
   const {
     testUsers,
     testMessages
@@ -17,11 +17,11 @@ describe('Messages Endpoints', function () {
     });
     app.set('db', db);
   });
-  
+
   after('disconnect from db', () => db.destroy());
-  
+
   before('cleanup', () => helpers.cleanTables(db));
-  
+
   afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('GET /api/messages', () => {
