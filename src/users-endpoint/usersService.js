@@ -1,12 +1,11 @@
 const bcrypt = require('bcryptjs');
 const xss = require('xss');
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*.!@$%^&(){}[\]:;<>,\.\?\~_+-=|])[\S]+/;
+const config = require('../config');
 
 // Nodejs encryption with CTR
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
+const CryptoJS = require('crypto-js');
+const AES = require('crypto-js/aes');
 
 
 const UsersService = {
@@ -58,21 +57,13 @@ const UsersService = {
     return bcrypt.hash(data, 12);
   },
 
-
-  encrypt(text) {
-    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let encrypted = cipher.update(text);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+  encrypt(text) { // returns an encrypted string
+    return CryptoJS.AES.encrypt(text, config.ENCRYPTION_KEY).toString();
   },
 
-  decrypt(text) {
-    let iv = Buffer.from(text.iv, 'hex');
-    let encryptedText = Buffer.from(text.encryptedData, 'hex');
-    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
+  decrypt(encrypted) { // returns the decrypted text
+    const bytes = CryptoJS.AES.decrypt(encrypted, config.ENCRYPTION_KEY)
+    return bytes.toString(CryptoJS.enc.Utf8);
   },
 
   serializeUser(user) {
