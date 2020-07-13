@@ -59,7 +59,7 @@ describe('Messages Endpoints', function () {
         email: 'test@email.com',
         password: '@passWord1'
       }
-      it('responds with 201 and the user\'s json', () => {
+      it('responds with 201 and the user\'s object', () => {
         return supertest(app)
           .post('/api/users')
           .send(testData)
@@ -84,7 +84,7 @@ describe('Messages Endpoints', function () {
         email: 'test@email.com',
         password: '@passWord1'
       }
-      it('responds with 400 and error message', () => {
+      it('responds with 400 and error message of missing field', () => {
         return supertest(app)
           .post('/api/users')
           .send(incompleteTestData)
@@ -92,7 +92,7 @@ describe('Messages Endpoints', function () {
       })
     })
     context('If there is no submitted data', () => {
-      it.only('responds with 400', () => {
+      it('responds with 400', () => {
         return supertest(app)
           .post('/api/users')
           .send({})
@@ -101,4 +101,23 @@ describe('Messages Endpoints', function () {
     })
   })
 
+  describe('DELETE /api/users', () => {
+    context('If there are users in the database', () => {
+      beforeEach(() => helpers.seedUsers(db, testUsers));
+      it('should successfully delete user', () => {
+        return supertest(app)
+          .delete('/api/users')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(201, { success: true })
+      })
+    })
+    context('If there are no users in the database', () => {
+      it('should return 401 unauthorized', () => {
+        return supertest(app)
+          .delete('/api/users')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(401, { error: 'Unauthorized request' })
+      })
+    })
+  })
 });
