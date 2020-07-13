@@ -65,113 +65,113 @@ function makeUsersArray() {
 
 function makeMessagesArray(users) {
   return [{
-      id: 1,
-      message: 'Smile!',
-      archived:false,
-      flagged:false,
-      user_id: users[0].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 2,
-      message: 'You can do it!',
-      archived:false,
-      flagged:false,
-      user_id: users[1].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 3,
-      message: 'You are loved!',
-      archived:false,
-      flagged:false,
-      user_id: users[2].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 4,
-      message: 'Dream It, Wish it, Do it!',
-      archived:false,
-      flagged:false,
-      user_id: users[3].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 5,
-      message: 'Smile!',
-      archived:false,
-      flagged:false,
-      user_id: users[0].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 6,
-      message: 'Dream Bigger, Do Bigger!',
-      archived:false,
-      flagged:false,
-      user_id: users[1].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 7,
-      message: 'You are worth it!',
-      archived:false,
-      flagged:false,
-      user_id: users[2].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 8,
-      message: 'Good morning from Malta!',
-      archived:false,
-      flagged:false,
-      user_id: users[3].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 9,
-      message: 'Hitler did 9/11',
-      archived:false,
-      flagged:true,
-      user_id: users[0].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 10,
-      message: 'Hitler did 711',
-      archived:true,
-      flagged:true,
-      user_id: users[1].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 11,
-      message: 'We are all in this together!',
-      archived:false,
-      flagged:false,
-      user_id: users[2].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
-    {
-      id: 12,
-      message: 'Stay positive!',
-      archived:false,
-      flagged:false,
-      user_id: users[3].id,
-      date_created: date.toISOString(),
-      date_modified: null
-    },
+    id: 1,
+    message: 'Smile!',
+    archived: false,
+    flagged: false,
+    user_id: users[0].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 2,
+    message: 'You can do it!',
+    archived: false,
+    flagged: false,
+    user_id: users[1].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 3,
+    message: 'You are loved!',
+    archived: false,
+    flagged: false,
+    user_id: users[2].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 4,
+    message: 'Dream It, Wish it, Do it!',
+    archived: false,
+    flagged: false,
+    user_id: users[3].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 5,
+    message: 'Smile!',
+    archived: false,
+    flagged: false,
+    user_id: users[0].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 6,
+    message: 'Dream Bigger, Do Bigger!',
+    archived: false,
+    flagged: false,
+    user_id: users[1].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 7,
+    message: 'You are worth it!',
+    archived: false,
+    flagged: false,
+    user_id: users[2].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 8,
+    message: 'Good morning from Malta!',
+    archived: false,
+    flagged: false,
+    user_id: users[3].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 9,
+    message: 'Hitler did 9/11',
+    archived: false,
+    flagged: true,
+    user_id: users[0].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 10,
+    message: 'Hitler did 711',
+    archived: true,
+    flagged: true,
+    user_id: users[1].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 11,
+    message: 'We are all in this together!',
+    archived: false,
+    flagged: false,
+    user_id: users[2].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
+  {
+    id: 12,
+    message: 'Stay positive!',
+    archived: false,
+    flagged: false,
+    user_id: users[3].id,
+    date_created: date.toISOString(),
+    date_modified: null
+  },
   ];
 }
 
@@ -204,15 +204,15 @@ function cleanTables(db) {
       messages
     `
     )
-    .then(() =>
-      Promise.all([
-        trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
-        trx.raw(`ALTER SEQUENCE messages_id_seq minvalue 0 START WITH 1`),
-        trx.raw(`SELECT setval('users_id_seq', 0)`),
-        trx.raw(`SELECT setval('messages_id_seq', 0)`),
-      ])
-    )
-    )
+      .then(() =>
+        Promise.all([
+          trx.raw(`ALTER SEQUENCE users_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`ALTER SEQUENCE messages_id_seq minvalue 0 START WITH 1`),
+          trx.raw(`SELECT setval('users_id_seq', 0)`),
+          trx.raw(`SELECT setval('messages_id_seq', 0)`),
+        ])
+      )
+  )
 }
 
 function seedUsers(db, users) {
@@ -222,10 +222,10 @@ function seedUsers(db, users) {
   }));
   return db.into('users').insert(hashedUsers)
     .then(() =>
-    db.raw( 
-      `SELECT setval('users_id_seq', ?)`,
-      users[users.length - 1].id
-    )
+      db.raw(
+        `SELECT setval('users_id_seq', ?)`,
+        users[users.length - 1].id
+      )
     );
 };
 

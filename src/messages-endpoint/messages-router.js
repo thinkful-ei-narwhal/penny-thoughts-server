@@ -19,15 +19,13 @@ MessagesRouter
   })
   .post([express.json(), requireAuth], (req, res, next) => {
     const { message } = req.body;
-    const threshold = 0.85;
-
+    const threshold = 0.99;
 
     if (!message) {
       return res.status(400).json({ error: 'message must exist' });
     }
 
     if (message && message.length > 1) {
-
 
       toxicity.load(threshold).then(model => {
         model.classify(message).then(predictions => {
