@@ -120,4 +120,30 @@ describe('Messages Endpoints', function () {
       })
     })
   })
+
+  describe('PATCH /api/users', () => {
+    beforeEach(() => helpers.seedUsers(db, testUsers));
+    context('If the user submits new data', () => {
+      const testData = {
+        full_name: 'Johnny Appleseed',
+        email: 'johnny@gmail.com'
+      }
+      it('should update the users data', () => {
+        return supertest(app)
+          .patch('/api/users')
+          .send(testData)
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(204)
+      })
+    })
+    context('If there is no submitted data', () => {
+      it('should not update the users data', () => {
+        return supertest(app)
+        .patch('/api/users')
+        .send({})
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(400, { error: 'Request body must contain wither \'email\' or \'name\'' })
+      })
+    })
+  })
 });
