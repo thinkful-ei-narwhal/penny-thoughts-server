@@ -66,7 +66,7 @@ MessagesRouter
       .catch(next);
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
-    if (!req.user.admin) return res.status(401).json('You must have admin priviledges to access that data.');
+    if (!req.user.admin) return res.status(401).send('You must have admin priviledges to access that data.');
     for (const [key, value] of Object.entries(req.body))
       if (value == null)
         return res.status(400).json({
@@ -81,7 +81,7 @@ MessagesRouter
 MessagesRouter
   .route('/archive')
   .patch(requireAuth, dataParser, (req, res, next) => {
-    if (!req.user.admin) return res.status(401).json('You must have admin priviledges to access that data.');
+    if (!req.user.admin) return res.status(401).send('You must have admin priviledges to access that data');
     for (const [key, value] of Object.entries(req.body))
       if (value == null)
         return res.status(400).json({
@@ -131,7 +131,7 @@ MessagesRouter
     const threshold = 0.85;
 
     if (!message) {
-      return res.status(400).json('message must exist');
+      return res.status(400).send('message must exist');
     }
 
     if (message && message.length > 1) {

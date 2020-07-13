@@ -2,13 +2,18 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const date = new Date()
 
+// Nodejs encryption with CTR
+const CryptoJS = require('crypto-js');
+const AES = require('crypto-js/aes');
+const config = require('../src/config')
+
 function makeUsersArray() {
   return [{
       id: 1,
       username: 'test-user-1',
       full_name: 'U2FsdGVkX1/pV2JzgLP4FWtA4U95wGFLIsKoAV6zPRw=',
       email:'U2FsdGVkX19l+PV0/GohQDBywwAmHUp/E312Uthm7yO7bAZGVxULzS/RawiYhCi0',
-      password: '$2a$12$OAUEOxC5mDlS42Zi02fETufYEQqLfFpqRxh4M9kemEirjaVsFXK6K',
+      password: '@password1',
       reported_count:0,
       daily_count:0,
       banned:false,
@@ -21,7 +26,7 @@ function makeUsersArray() {
       username: 'test-user-2',
       full_name: 'U2FsdGVkX1+X/rQhp2UtKck8A2YqXRJ13GyCAYnbOc0=',
       email:'U2FsdGVkX1+3/igKdY2Ep9wjy2FuLmJ3eCWteLxLipA=',
-      password: '$2a$12$3fgqkJYeRxLIrHNid1/hbOkZ8ED0v65xYHRUH3Lk3Zu1X7uNFKYLW',
+      password: '@password1',
       reported_count:0,
       daily_count:0,
       banned:false,
@@ -34,7 +39,7 @@ function makeUsersArray() {
       username: 'test-user-3',
       full_name: 'U2FsdGVkX1/J4Ma7suqs+bXne/qsE9sZ6cbr6LNQgAw=',
       email:'U2FsdGVkX18EJmWtTWTw6cSA5CWCEI4cep2q5Evu9CHCQK5A62RSWDDUz1iM2Xw2',
-      password: '$2a$12$Bb32xLAKgB5IBLEpSK1.4OIhzegi53MuUo24j7twUsxttcBVPWuge',
+      password: '@password1',
       reported_count:0,
       daily_count:0,
       banned:false,
@@ -47,7 +52,7 @@ function makeUsersArray() {
       username: 'test-user-4',
       full_name: 'U2FsdGVkX18/UMPf0wy2VjP3ZRPrvvH0xz1zPc/hNBM=',
       email:'U2FsdGVkX1+RTnd8ulu0duVCG/sb78ipMxeSCI6X/nY=',
-      password: '$2a$12$EA/pj9jZ2bzhZjJbTUW7yuxGDElDsFpnZmhBdPoetNXsVlPkletT.',
+      password: '@password1',
       reported_count:0,
       daily_count:0,
       banned:false,
@@ -246,6 +251,15 @@ function seedMessagesTables(db, users, messages = []) {
   })
 }
 
+function encrypt(text) {
+  return CryptoJS.AES.encrypt(text, config.ENCRYPTION_KEY).toString();
+}
+
+function decrypt(encrypted) {
+  const bytes = CryptoJS.AES.decrypt(encrypted, config.ENCRYPTION_KEY)
+  return bytes.toString(CryptoJS.enc.Utf8);
+}
+
 module.exports = {
   makeAuthHeader,
   makeUsersArray,
@@ -254,5 +268,7 @@ module.exports = {
   makeMessagesFixtures,
   cleanTables,
   seedUsers,
-  seedMessagesTables
+  seedMessagesTables,
+  encrypt,
+  decrypt
 }
