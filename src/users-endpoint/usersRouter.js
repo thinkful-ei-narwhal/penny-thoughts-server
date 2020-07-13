@@ -51,6 +51,7 @@ usersRouter
 
         return UsersService.hashPassword(password)
           .then(hashedPassword => {
+            console.log(hashedPassword)
             let userFull_Name = UsersService.encrypt(full_name)
             let userEmail = UsersService.encrypt(email)
 
