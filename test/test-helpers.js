@@ -9,57 +9,57 @@ const config = require('../src/config')
 
 function makeUsersArray() {
   return [{
-    id: 1,
-    username: 'test-user-1',
-    full_name: 'U2FsdGVkX1/pV2JzgLP4FWtA4U95wGFLIsKoAV6zPRw=',
-    email: 'U2FsdGVkX19l+PV0/GohQDBywwAmHUp/E312Uthm7yO7bAZGVxULzS/RawiYhCi0',
-    password: '@password1',
-    reported_count: 0,
-    daily_count: 0,
-    banned: false,
-    admin: false,
-    date_created: date.toISOString(),
-    date_modified: null
-  },
-  {
-    id: 2,
-    username: 'test-user-2',
-    full_name: 'U2FsdGVkX1+X/rQhp2UtKck8A2YqXRJ13GyCAYnbOc0=',
-    email: 'U2FsdGVkX1+3/igKdY2Ep9wjy2FuLmJ3eCWteLxLipA=',
-    password: '@password1',
-    reported_count: 0,
-    daily_count: 0,
-    banned: false,
-    admin: false,
-    date_created: date.toISOString(),
-    date_modified: null
-  },
-  {
-    id: 3,
-    username: 'test-user-3',
-    full_name: 'U2FsdGVkX1/J4Ma7suqs+bXne/qsE9sZ6cbr6LNQgAw=',
-    email: 'U2FsdGVkX18EJmWtTWTw6cSA5CWCEI4cep2q5Evu9CHCQK5A62RSWDDUz1iM2Xw2',
-    password: '@password1',
-    reported_count: 0,
-    daily_count: 0,
-    banned: false,
-    admin: true,
-    date_created: date.toISOString(),
-    date_modified: null
-  },
-  {
-    id: 4,
-    username: 'test-user-4',
-    full_name: 'U2FsdGVkX18/UMPf0wy2VjP3ZRPrvvH0xz1zPc/hNBM=',
-    email: 'U2FsdGVkX1+RTnd8ulu0duVCG/sb78ipMxeSCI6X/nY=',
-    password: '@password1',
-    reported_count: 0,
-    daily_count: 0,
-    banned: false,
-    admin: false,
-    date_created: date.toISOString(),
-    date_modified: null
-  },
+      id: 1,
+      username: 'test-user-1',
+      full_name: 'U2FsdGVkX1/pV2JzgLP4FWtA4U95wGFLIsKoAV6zPRw=',
+      email:'U2FsdGVkX19l+PV0/GohQDBywwAmHUp/E312Uthm7yO7bAZGVxULzS/RawiYhCi0',
+      password: '@password1',
+      reported_count:0,
+      daily_count:0,
+      banned:false,
+      admin:false,
+      date_created: date.toISOString(),
+      date_modified:null
+    },
+    {
+      id: 2,
+      username: 'test-user-2',
+      full_name: 'U2FsdGVkX1+X/rQhp2UtKck8A2YqXRJ13GyCAYnbOc0=',
+      email:'U2FsdGVkX1+3/igKdY2Ep9wjy2FuLmJ3eCWteLxLipA=',
+      password: '@password1',
+      reported_count:0,
+      daily_count:0,
+      banned:false,
+      admin:false,
+      date_created: date.toISOString(),
+      date_modified:null
+    },
+    {
+      id: 3,
+      username: 'test-user-3',
+      full_name: 'U2FsdGVkX1/J4Ma7suqs+bXne/qsE9sZ6cbr6LNQgAw=',
+      email:'U2FsdGVkX18EJmWtTWTw6cSA5CWCEI4cep2q5Evu9CHCQK5A62RSWDDUz1iM2Xw2',
+      password: '@password1',
+      reported_count:0,
+      daily_count:0,
+      banned:false,
+      admin:true,
+      date_created: date.toISOString(),
+      date_modified:null
+    },
+    {
+      id: 4,
+      username: 'test-user-4',
+      full_name: 'U2FsdGVkX18/UMPf0wy2VjP3ZRPrvvH0xz1zPc/hNBM=',
+      email:'U2FsdGVkX1+RTnd8ulu0duVCG/sb78ipMxeSCI6X/nY=',
+      password: '@password1',
+      reported_count:0,
+      daily_count:0,
+      banned:false,
+      admin:false,
+      date_created: date.toISOString(),
+      date_modified:null
+    },
   ]
 }
 

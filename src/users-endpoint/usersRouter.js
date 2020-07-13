@@ -27,6 +27,8 @@ usersRouter
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
 
+    
+
     for (const field of ['full_name', 'username', 'email', 'password'])
       if (!req.body[field])
         return res.status(400).json({
@@ -51,6 +53,7 @@ usersRouter
 
         return UsersService.hashPassword(password)
           .then(hashedPassword => {
+            console.log(hashedPassword)
             let userFull_Name = UsersService.encrypt(full_name)
             let userEmail = UsersService.encrypt(email)
 
@@ -91,6 +94,10 @@ usersRouter
       full_name,
       email
     } = req.body;
+
+    if (!full_name && !email) res.status(400).json({
+      error: 'Request body must contain wither \'email\' or \'name\''
+    })
 
     let userFull_Name = UsersService.encrypt(full_name)
     let userEmail = UsersService.encrypt(email)
