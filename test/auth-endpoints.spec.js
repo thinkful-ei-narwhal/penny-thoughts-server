@@ -8,9 +8,6 @@ describe('Auth Endpoints', () => {
   let db;
 
   const testUsers = helpers.makeUsersArray();
-  // console.log(helpers.makeUsersArray())
-  console.log(testUsers)
-
   const testUser = testUsers[0];
 
   before('make knex instance', () => {
@@ -69,13 +66,27 @@ describe('Auth Endpoints', () => {
         .expect(400, { error: 'Incorrect username or password' });
     });
     it('responds 200 and JWT auth when valid credentials', () => {
-      const validCreds = { username: testUser.username, password: testUser.password };
-      const expectedToken = jwt.sign({ user_id: testUser.id }, process.env.JWT_SECRET, { subject: testUser.username, algorithm: 'HS256' });
 
-      return supertest(app)
-        .post('/api/auth/login')
-        .send(validCreds)
-        .expect(200, { authToken: expectedToken });
+      const validCreds = {
+        username: testUser.username,
+        password: testUser.password
+      };
+
+      const expectedToken = jwt.sign(
+        {
+          user_id: testUser.id,
+          admin: testUser.admin
+        },
+        process.env.JWT_SECRET,
+        {
+          subject: testUser.username,
+          algorithm: 'HS256'
+        },
+      );
+
+      return supertest(app).post('/api/auth/login').send(validCreds).expect(200, {
+        authToken: expectedToken,
+      });
     });
   });
 });
