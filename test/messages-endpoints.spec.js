@@ -129,12 +129,12 @@ describe('Messages Endpoints', function () {
   });
   //GET /api/messages/flagged
 
-  describe('/api/messages/userData', () => {
+  describe('GET /api/messages/userData/:page', () => {
     context('Given no messages', () => {
       beforeEach(() => helpers.seedUsers(db, testUsers));
       it('responds with 200 and an empty list', () => {
         return supertest(app)
-          .get('/api/messages/userData')
+          .get('/api/messages/userData/1')
           .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
           .expect(200, []);
       });
@@ -154,7 +154,7 @@ describe('Messages Endpoints', function () {
         const filterMessages = expectedMessages.filter(message => message.user_id === 1);
 
         return supertest(app)
-          .get('/api/messages/userData')
+          .get('/api/messages/userData/1')
           .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
           .expect(200, filterMessages);
       });
@@ -347,6 +347,7 @@ describe('Messages Endpoints', function () {
           .send(message)
           .expect(204);
       });
+
       it('responds with 204 and a error message', () => {
         const message = {
           id:1,
@@ -395,7 +396,7 @@ describe('Messages Endpoints', function () {
       });
     });
   });
-  //PATCH /api/messages/userData
+  //PATCH /api/messages/report
 
 });
 
@@ -404,13 +405,10 @@ describe('Messages Endpoints', function () {
 // GET /api/messages *********
 //GET /api//messages/single/:id   *********
 //GET /api/messages/flagged   ******
-//GET /api/messages/userData   ******
-
+//GET /api/messages/userData/:page   ******
 //POST /api/messages     ******
-
 //DELETE /api/habits/id  ******
-
 //PATCH /api/messages/flagged ***** someone needs to fix error message
 //PATCH /api/messages/archive ***** someone needs to fix error message
-//PATCH /api/messages/userData ****
 //PATCH /api/messages/report ****
+//PATCH /api/messages/userData ****
