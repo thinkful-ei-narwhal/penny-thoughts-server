@@ -261,7 +261,7 @@ describe('Messages Endpoints', function () {
           .expect(204);
       });
 
-      it.skip('responds with 400 and error message', () => {
+      it('responds with 400 and error message', () => {
         const message = {
           ids:1
         };

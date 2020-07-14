@@ -68,13 +68,21 @@ MessagesRouter
       .catch(next);
   })
   .patch(requireAuth, dataParser, (req, res, next) => {
-    if (!req.user.admin) return res.status(401).send('You must have admin priviledges to access that data.');
-    for (const [key, value] of Object.entries(req.body))
-      if (value == null)
+    const { id } = req.body;
+
+    const newMessage = { id };
+
+    console.log('ran');
+    console.log(newMessage.id);
+
+    for (const [key, value] of Object.entries(newMessage))
+      if (value === null)
         return res.status(400).json({
           error: { message: `Missing '${key}' in request body` }
         });
-    
+
+    if (!req.user.admin) return res.status(401).send('You must have admin priviledges to access that data.');
+
     MessagesService.unflagMessage(req.app.get('db'), req.body.id)
       .then(message => res.status(204).send())
       .catch(next);
