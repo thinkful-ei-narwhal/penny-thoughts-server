@@ -25,6 +25,10 @@ MessagesRouter
       return res.status(400).json({ error: 'message must exist' });
     }
 
+    if (message.length >= 50) {
+      return res.status(400).json({ error: 'message must be less than 50 characters' });
+    }
+
     if (message && message.length > 1) {
 
       toxicity.load(threshold).then(model => {
