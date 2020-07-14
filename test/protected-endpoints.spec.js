@@ -54,8 +54,8 @@ describe('Protected Endpoints', () => {
       method: supertest(app).patch,
     },
     {
-      name: 'GET /api/messages/userData',
-      path: '/api/messages/UserData',
+      name: 'GET /api/messages/userData/1',
+      path: '/api/messages/UserData/1',
       method: supertest(app).get,
     },
     {
