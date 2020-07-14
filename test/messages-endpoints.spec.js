@@ -270,7 +270,7 @@ describe('Messages Endpoints', function () {
           .patch('/api/messages/flagged')
           .set('Authorization', helpers.makeAuthHeader(testUsers[2]))
           .send(message)
-          .expect(400, '{"error":"Missing id in request body"}');
+          .expect(400, {'error': {'message': 'Missing \'id\' in request body'}});
       });
 
       it('responds with 401 and needs admin', () => {
@@ -322,16 +322,16 @@ describe('Messages Endpoints', function () {
           .expect(401,'You must have admin priviledges to access that data');
       });
 
-      it.skip('responds with 400 and error message', () => {
+      it('responds with 400 and error message', () => {
         const message = {
           ids:1
         };
 
         return supertest(app)
-          .patch('/api/messages/flagged')
+          .patch('/api/messages/archive')
           .set('Authorization', helpers.makeAuthHeader(testUsers[2]))
           .send(message)
-          .expect(400, '{"error":"Missing id in request body"}');
+          .expect(400, {'error': {'message': 'Missing \'id\' in request body'}});
       });
 
     });
