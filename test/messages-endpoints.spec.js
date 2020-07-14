@@ -193,6 +193,19 @@ describe('Messages Endpoints', function () {
           expect(res.body.date_modified).to.be.null;
         });
     }).timeout(15000);
+
+    it('responds with 400 and error message because bad message', () => {
+      const message = {
+        message:'fuck hitler'
+      };
+
+      return supertest(app)
+        .post('/api/messages')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .send(message)
+        .expect(400, {error:'Your message was rejected by the system! Please find something nicer to say!'});
+    }).timeout(15000);
+
     it('responds with 400 and error message', () => {
       return supertest(app)
         .post('/api/messages')
@@ -346,6 +359,19 @@ describe('Messages Endpoints', function () {
           .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
           .send(message)
           .expect(204);
+      });
+
+      it('responds with 204', () => {
+        const message = {
+          id:1,
+          message:'fuck hitler'
+        };
+
+        return supertest(app)
+          .patch('/api/messages/userData')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .send(message)
+          .expect(400, {error:'Your message was rejected by the system! Please find something nicer to say!'});
       });
 
       it('responds with 204 and a error message', () => {
