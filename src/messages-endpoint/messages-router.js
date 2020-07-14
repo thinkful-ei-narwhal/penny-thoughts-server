@@ -71,9 +71,7 @@ MessagesRouter
     if (!req.user.admin) return res.status(401).send('You must have admin priviledges to access that data.');
     for (const [key, value] of Object.entries(req.body))
       if (value == null)
-        return res.status(400).json({
-          error: { message: `Missing '${key}' in request body` }
-        });
+        return res.status(400).json({error:`Missing '${key}' in request body` });
     
     MessagesService.unflagMessage(req.app.get('db'), req.body.id)
       .then(message => res.status(204).send())
