@@ -11,7 +11,7 @@ const jsonBodyParser = express.json();
 usersRouter
   .route('/')
   .get(requireAuth, (req, res, next) => {
-    if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' })
+    if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' });
     UsersService.getUserData(req.app.get('db'), req.user.id)
       .then(response => {
         let userFullName = response.full_name;
@@ -20,9 +20,9 @@ usersRouter
         res.json({
           full_name: UsersService.decrypt(userFullName),
           email: UsersService.decrypt(userEmail)
-        })
+        });
       })
-      .catch(next)
+      .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
     const { full_name, username, email, password } = req.body;
@@ -53,8 +53,8 @@ usersRouter
 
         return UsersService.hashPassword(password)
           .then(hashedPassword => {
-            let userFull_Name = UsersService.encrypt(full_name)
-            let userEmail = UsersService.encrypt(email)
+            let userFull_Name = UsersService.encrypt(full_name);
+            let userEmail = UsersService.encrypt(email);
 
             const newUser = {
               username,
@@ -96,10 +96,10 @@ usersRouter
 
     if (!full_name && !email) res.status(400).json({
       error: 'Request body must contain wither \'email\' or \'name\''
-    })
+    });
 
-    let userFull_Name = UsersService.encrypt(full_name)
-    let userEmail = UsersService.encrypt(email)
+    let userFull_Name = UsersService.encrypt(full_name);
+    let userEmail = UsersService.encrypt(email);
 
     const newData = {
       userFull_Name,
@@ -110,7 +110,7 @@ usersRouter
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'email' or 'name'`
+          message: 'Request body must contain either \'email\' or \'name\''
         }
       });
 
