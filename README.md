@@ -46,12 +46,24 @@ Currently the API supports GET and POST endpoints.
 This app is an uplifting, anonymous, message sharing app. Negative messages are filtered out using a toxicity filter from TensorFlow. 
 
 ## Technologies
-- Font End
+- General
+  * JavaScript
+- Front End
+  * HTML5
+  * CSS3
   * React
 - Back End
   * Node.js
+  * Express
+  * XSS
+  * Winston
+  * NYC
+  * Knex
   * Postgresql
   * TensorFlow
+  * Crypto-js
 - Testing
-  * Mocha, Chai
   * Jest
+  * Supertest
+  * Mocha, Chai
+  * Enzyme
