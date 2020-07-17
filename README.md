@@ -1,6 +1,14 @@
 ## Application
 Penny Thoughts
 
+## Built By
+Andrew Durrant
+Cesar Lenin Morales
+Daniel Sottile
+Joseph Rivera
+Kevin Jiang
+Logan Stribling
+
 ## Links
 live site: https://penny-thoughts.vercel.app/<br />
 server: https://mighty-peak-21411.herokuapp.com/
