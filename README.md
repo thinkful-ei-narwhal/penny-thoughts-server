@@ -2,12 +2,12 @@
 Penny Thoughts
 
 ## Built By
-Andrew Durrant
-Cesar Lenin Morales
-Daniel Sottile
-Joseph Rivera
-Kevin Jiang
-Logan Stribling
+- Andrew Durrant
+- Cesar Lenin Morales
+- Daniel Sottile
+- Joseph Rivera
+- Kevin Jiang
+- Logan Stribling
 
 ## Links
 live site: https://penny-thoughts.vercel.app/<br />
