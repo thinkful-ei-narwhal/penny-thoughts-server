@@ -35,9 +35,7 @@ Currently the API supports GET and POST endpoints.
 ![Admin](images/AdminPage.png)<br />
 
 ### Summary
-This app helps users implement the spaced repetition technique to help users learn ten preloaded French words.
-New Users can create an account. Returning users can log in and begin practicing with instant feedback and
-reinforcement.
+This app is an uplifting, anonymous, message sharing app. Negative messages are filtered out using a toxicity filter from TensorFlow. 
 
 ## Technologies
 - Font End
