@@ -9,7 +9,7 @@ const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
 usersRouter
-  .route('/')
+  .route('/') // this gets user data such as full name and email (not passwords and usernames) but requires authentication
   .get(requireAuth, (req, res, next) => {
     if (!req.user) res.status(401).json({ error: 'You must be signed in to get that data!' });
     UsersService.getUserData(req.app.get('db'), req.user.id)
@@ -24,7 +24,7 @@ usersRouter
       })
       .catch(next);
   })
-  .post(jsonBodyParser, (req, res, next) => {
+  .post(jsonBodyParser, (req, res, next) => { // allows for the creation of a user
     const { full_name, username, email, password } = req.body;
 
     
@@ -35,7 +35,6 @@ usersRouter
           error: `Missing '${field}' in request body`
         });
 
-    // leave here until we tackle admin user stories
     let admin = false;
 
     const passwordError = UsersService.validatePassword(password);
@@ -78,7 +77,7 @@ usersRouter
       })
       .catch(next);
   })
-  .delete(requireAuth, (req, res, next) => {
+  .delete(requireAuth, (req, res, next) => { // allows a user to delete their own account
     UsersService.deleteUser(
       req.app.get('db'),
       req
