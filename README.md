@@ -12,7 +12,7 @@ Penny Thoughts
 ## Links
 live site: https://penny-thoughts.vercel.app/<br />
 server: https://mighty-peak-21411.herokuapp.com/<br />
-server repo: https://github.com/thinkful-ei-narwhal/penny-thoughts-server/
+client Repo:https://github.com/thinkful-ei-narwhal/penny-thoughts-client/
 
 ## Using The API
 
