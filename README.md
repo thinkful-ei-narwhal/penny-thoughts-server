@@ -17,27 +17,27 @@ client Repo:https://github.com/thinkful-ei-narwhal/penny-thoughts-client/
 ## Using The API
 
   - Auth Route '/api/auth'
-    + POST '/login' => { authToken: [some auth token] }
+    + Login: POST '/login'{ username, password } => { authToken: [some auth token] }
 
  - Messages Route '/api/messages' (most require authentication)
-  + GET '/' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
-  + POST (reqAuth) '/' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}]
-  + GET '/single:id' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}]
-  + GET (reqAuth) '/flagged' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
-  + PATCH (reqAuth) '/flagged' => nothing
-  + PATCH (reqAuth) '/archive' => nothing
-  + GET (reqAuth) '/userData/:page' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
-  + GET (reqAuth) '/pageCount' => {count: #}
-  + PATCH (reqAuth) '/userData' => nothing
-  + DELETE (reqAuth) '/userData' => nothing
-  + PATCH (reqAuth) '/report' => nothing
+  + Get 10 Messages: GET '/' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
+  + Post 1 message: POST (reqAuth) '/' { message } => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}]
+  + Get 1 Message: GET '/single:id' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}]
+  + Get All Flagged Messages: GET (reqAuth) '/flagged' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
+  + Unflag a Message: PATCH (reqAuth) '/flagged' { id } => nothing
+  + Archive a Message: PATCH (reqAuth) '/archive' { id } => nothing
+  + Get User Messages: GET (reqAuth) '/userData/:page' => [{archived: false, date_created: [some date], date_modified: [some_date], flagged: [boolean], id: #, message: ['a message'], user_id: #}, ...]
+  + Get the Page Count: GET (reqAuth) '/pageCount' => {count: #}
+  + Patch a user message: PATCH (reqAuth) '/userData' { id, message } => nothing
+  + Delete a user Message: DELETE (reqAuth) '/userData' { id } => nothing
+  + Report (flag) a message: PATCH '/report' { id }=> nothing
   
   
  - Users Route 'api/users' (all requre authentication)
-  + GET '/' => {full_name: [fullname] , email: [email]}
-  + POST '/' => {full_name: [fullname] , email: [email]}
-  + DELETE '/' => nothing
-  + PATCH '/' => nothing
+  + Get the user fullname and email: GET '/' => {full_name: [fullname] , email: [email]}
+  + Post the user fullname and email: POST '/' { full_name, username, email, password } => {full_name: [fullname] , email: [email]}
+  + Delete the user account: DELETE '/' { id } => { success: true }
+  + Edit user fullname and email: PATCH '/' { full_name, email } => nothing
 
 
 ## Screen Shots
