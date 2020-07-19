@@ -52,7 +52,7 @@ MessagesRouter
   });
 
 MessagesRouter
-  .route('/single/:id')
+  .route('/single/:id') // This allows for getting a single message when the coin is flipped
   .get((req, res, next) => {
     MessagesService.getOneRandom(req.app.get('db'), req.params.id)
       .then(messages => res.json(messages.map(message => MessagesService.serialize(message))))
@@ -60,7 +60,7 @@ MessagesRouter
   });
 
 MessagesRouter
-  .route('/flagged')
+  .route('/flagged') // This allows for the retrival of flagged messages and patching of them for the admin dashboard
   .get(requireAuth, (req, res, next) => {
     if (!req.user.admin) return res.status(401).json('You must have admin priviledges to access that data.');
     MessagesService.getFlaggedMessages(req.app.get('db'))
@@ -89,7 +89,7 @@ MessagesRouter
   });
 
 MessagesRouter
-  .route('/archive')
+  .route('/archive') // This allows the admins to archive messages.
   .patch(requireAuth, dataParser, (req, res, next) => {
     const {
       id
@@ -191,8 +191,8 @@ MessagesRouter
   });
 
 MessagesRouter
-  .route('/report')
-  .patch(requireAuth, dataParser, (req, res, next) => {
+  .route('/report') // Allows one to report a message
+  .patch(dataParser, (req, res, next) => { // this should not require authentication
     const {
       id
     } = req.body;
