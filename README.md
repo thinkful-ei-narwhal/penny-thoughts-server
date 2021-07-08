@@ -48,7 +48,7 @@ client Repo:https://github.com/thinkful-ei-narwhal/penny-thoughts-client/
 ![Admin](images/AdminPage.png)<br />
 
 ### Summary
-Penny Thoughts is an application built for users to share uplifting and motivational messages in a world that is fraught with crisis.  In order to keep our space space, we filter messages using TensorFlow.js's Toxicity model.
+Penny Thoughts is an application built for users to share uplifting and motivational messages in a world that is fraught with crisis.  In order to keep our space safe, we filter messages using TensorFlow.js's Toxicity model.
 
 ## Technologies
 - General
